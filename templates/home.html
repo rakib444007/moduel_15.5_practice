@@ -1,0 +1,41 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<table class="table" style="width: 85%; margin: auto;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Musician Name</th>
+            <th>Email</th>
+            <th>Album Rating </th>
+            <th>Instrument Type </th>
+            <th>Album Name </th>
+            <th>Release Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for musi in music %}
+        {% for album in musi.album_set.all %}
+        <tr>
+            <td>{{ musi.id }}</td> 
+            <td><a href="{% url 'musician_edit' musi.pk %}" class="no-link-style">{{ musi.first_name }} {{ musi.last_name }}</a></td>
+            
+            <td>{{ musi.email }}</td>
+            <td>{{ album.rating }}</td>
+            <td>{{ musi.instrument }}</td>
+            <td>{{ album.AlbumName }}</td>
+            <td>{{ album.ReleaseDate }}</td>
+            <td>
+                <a href="{% url 'album_edit' album.pk %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'musician_delete' musi.pk %}" class="btn btn-danger">Delete</a>
+            </td>
+            
+        
+        </tr>
+        {% endfor %}
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
